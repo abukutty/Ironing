@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ARD Info Tech - Auth</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("MdX37qYGHHn_pVXSc");
+    })();
+  </script>
+</head>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+  <div class="w-full max-w-md p-6 bg-white rounded-xl shadow-md" id="auth-container">
+    <h2 class="text-2xl font-bold text-center mb-4">ARD Info Tech</h2>
+
+    <!-- Step 1: Login -->
+    <div id="step1" class="space-y-4">
+      <input id="email" type="email" placeholder="Email" class="w-full border p-2 rounded" />
+      <input id="password" type="password" placeholder="Password" class="w-full border p-2 rounded" />
+      <button id="loginBtn" class="bg-blue-600 text-white w-full py-2 rounded">Login</button>
+      <button id="signupBtn" class="text-blue-600 w-full">Sign Up</button>
+      <button id="forgotBtn" class="text-sm text-gray-500 w-full">Forgot Password?</button>
+    </div>
+
+    <!-- Step 2: Enter email to send OTP -->
+    <div id="step2" class="space-y-4 hidden">
+      <input id="signupEmail" type="email" placeholder="Enter email" class="w-full border p-2 rounded" />
+      <button id="sendOtpBtn" class="bg-blue-600 text-white w-full py-2 rounded">Send OTP</button>
+      <button id="backToLogin1" class="text-sm text-gray-500 w-full">Back</button>
+    </div>
+
+    <!-- Step 3: Verify OTP -->
+    <div id="step3" class="space-y-4 hidden">
+      <input id="otpInput" type="text" maxlength="6" placeholder="Enter OTP" class="w-full border p-2 rounded" />
+      <button id="verifyOtpBtn" class="bg-green-600 text-white w-full py-2 rounded">Verify OTP</button>
+    </div>
+
+    <!-- Step 4: Name + Password -->
+    <div id="step4" class="space-y-4 hidden">
+      <input id="nameInput" type="text" placeholder="Your Name" class="w-full border p-2 rounded" />
+      <input id="newSignupPass" type="password" placeholder="Set Password" class="w-full border p-2 rounded" />
+      <button id="createAccountBtn" class="bg-purple-600 text-white w-full py-2 rounded">Confirm</button>
+    </div>
+
+    <!-- Step 5: Welcome Dashboard -->
+    <div id="step5" class="space-y-4 hidden">
+      <p class="text-center">Welcome, <span id="userName" class="font-bold"></span></p>
+      <button id="logoutBtn" class="bg-red-500 text-white w-full py-2 rounded">Logout</button>
+      <button id="deleteBtn" class="bg-gray-500 text-white w-full py-2 rounded">Delete Account</button>
+    </div>
+
+    <!-- Password Reset -->
+    <div id="resetStep" class="space-y-4 hidden">
+      <input id="resetEmail" type="email" placeholder="Enter email" class="w-full border p-2 rounded" />
+      <button id="sendResetOtp" class="bg-blue-600 text-white w-full py-2 rounded">Send OTP</button>
+      <input id="resetOtp" type="text" maxlength="6" placeholder="Enter OTP" class="w-full border p-2 rounded" />
+      <input id="newPass" type="password" placeholder="New Password" class="w-full border p-2 rounded" />
+      <input id="confirmNewPass" type="password" placeholder="Confirm Password" class="w-full border p-2 rounded" />
+      <button id="changePasswordBtn" class="bg-green-600 text-white w-full py-2 rounded">Change Password</button>
+      <button id="backToLogin2" class="text-sm text-gray-500 w-full">Back</button>
+    </div>
+
+    <!-- Message display -->
+    <p id="message" class="text-sm text-center mt-4 text-red-500"></p>
+  </div>
+
+  <script src="auth.js"></script>
+</body>
+</html>
