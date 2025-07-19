@@ -7,52 +7,68 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <script>
+    // Initialize EmailJS with your Public Key
     (function(){
       emailjs.init("MdX37qYGHHn_pVXSc"); // Your EmailJS Public Key
     })();
   </script>
 </head>
-<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+<body class="bg-gray-100 flex justify-center items-center min-h-screen font-sans">
   <div class="w-full max-w-md p-6 bg-white rounded-xl shadow-md" id="auth-container">
-    <h2 class="text-2xl font-bold text-center mb-4">ARD Info Tech</h2>
+    <h2 class="text-2xl font-bold text-center mb-4 text-gray-800">ARD Info Tech</h2>
     <div id="message" class="text-red-500 text-center mb-4"></div>
 
+    <!-- Step 1: Login/Signup/Forgot Password Options -->
     <div id="step1" class="space-y-4">
-      <input type="email" id="email" placeholder="Email" class="w-full border p-2 rounded" />
-      <input type="password" id="password" placeholder="Password" class="w-full border p-2 rounded" />
-      <button id="loginBtn" class="bg-blue-600 text-white w-full py-2 rounded">Login</button>
-      <button id="signupBtn" class="bg-gray-200 text-gray-800 w-full py-2 rounded">Sign Up</button>
-      <button id="forgotBtn" class="bg-yellow-500 text-white w-full py-2 rounded">Forgot Password</button>
+      <input type="email" id="email" placeholder="Email" class="w-full border p-2 rounded-md focus:ring-blue-500 focus:border-blue-500" />
+      <input type="password" id="password" placeholder="Password" class="w-full border p-2 rounded-md focus:ring-blue-500 focus:border-blue-500" />
+      <button id="loginBtn" class="bg-blue-600 text-white w-full py-2 rounded-md hover:bg-blue-700 transition duration-200 shadow-md">Login</button>
+      <button id="signupBtn" class="bg-gray-200 text-gray-800 w-full py-2 rounded-md hover:bg-gray-300 transition duration-200 shadow-md">Sign Up</button>
+      <button id="forgotBtn" class="bg-yellow-500 text-white w-full py-2 rounded-md hover:bg-yellow-600 transition duration-200 shadow-md">Forgot Password</button>
     </div>
 
+    <!-- Step 2: Signup - Enter Email to Send OTP -->
     <div id="step2" class="space-y-4 hidden">
-      <input type="email" id="signupEmail" placeholder="Enter your email" class="w-full border p-2 rounded" />
-      <button id="sendOtpBtn" class="bg-green-600 text-white w-full py-2 rounded">Send OTP</button>
-      <button id="backToLogin1" class="bg-gray-200 text-gray-800 w-full py-2 rounded">Back</button>
+      <input type="email" id="signupEmail" placeholder="Enter your email" class="w-full border p-2 rounded-md focus:ring-green-500 focus:border-green-500" />
+      <button id="sendOtpBtn" class="bg-green-600 text-white w-full py-2 rounded-md hover:bg-green-700 transition duration-200 shadow-md">Send OTP</button>
+      <button id="backToLogin1" class="bg-gray-200 text-gray-800 w-full py-2 rounded-md hover:bg-gray-300 transition duration-200 shadow-md">Back</button>
     </div>
 
+    <!-- Step 3: Signup - Verify OTP -->
     <div id="step3" class="space-y-4 hidden">
-      <input type="text" id="otpInput" placeholder="Enter OTP" class="w-full border p-2 rounded" />
-      <button id="verifyOtpBtn" class="bg-green-600 text-white w-full py-2 rounded">Verify OTP</button>
+      <input type="text" id="otpInput" placeholder="Enter OTP" class="w-full border p-2 rounded-md focus:ring-green-500 focus:border-green-500" />
+      <button id="verifyOtpBtn" class="bg-green-600 text-white w-full py-2 rounded-md hover:bg-green-700 transition duration-200 shadow-md">Verify OTP</button>
     </div>
 
+    <!-- Step 4: Signup - Set Name and Password -->
     <div id="step4" class="space-y-4 hidden">
-      <input type="text" id="nameInput" placeholder="Enter your name" class="w-full border p-2 rounded" />
-      <input type="password" id="newSignupPass" placeholder="Set your password" class="w-full border p-2 rounded" />
-      <button id="createAccountBtn" class="bg-purple-600 text-white w-full py-2 rounded">Confirm</button>
+      <input type="text" id="nameInput" placeholder="Enter your name" class="w-full border p-2 rounded-md focus:ring-purple-500 focus:border-purple-500" />
+      <input type="password" id="newSignupPass" placeholder="Set your password" class="w-full border p-2 rounded-md focus:ring-purple-500 focus:border-purple-500" />
+      <button id="createAccountBtn" class="bg-purple-600 text-white w-full py-2 rounded-md hover:bg-purple-700 transition duration-200 shadow-md">Confirm</button>
     </div>
 
+    <!-- Step 5: Welcome Dashboard -->
     <div id="step5" class="space-y-4 hidden">
-      <p class="text-center">Welcome, <span id="userName" class="font-bold"></span></p>
-      <button id="logoutBtn" class="bg-red-500 text-white w-full py-2 rounded">Logout</button>
-      <button id="deleteBtn" class="bg-gray-500 text-white w-full py-2 rounded">Delete Account</button>
+      <p class="text-center text-lg text-gray-700">Welcome, <span id="userName" class="font-bold text-blue-600"></span>!</p>
+      <button id="logoutBtn" class="bg-red-500 text-white w-full py-2 rounded-md hover:bg-red-600 transition duration-200 shadow-md">Logout</button>
+      <button id="deleteBtn" class="bg-gray-500 text-white w-full py-2 rounded-md hover:bg-gray-600 transition duration-200 shadow-md">Delete Account</button>
     </div>
 
+    <!-- Reset Step: Forgot Password - Enter Email for Reset Link -->
     <div id="resetStep" class="space-y-4 hidden">
-      <input id="resetEmail" type="email" placeholder="Enter your email to reset password" class="w-full border p-2 rounded" />
-      <button id="sendFirebaseResetLinkBtn" class="bg-blue-600 text-white w-full py-2 rounded">Send Password Reset Link</button>
-      <button id="backToLogin2" class="bg-gray-200 text-gray-800 w-full py-2 rounded">Back</button>
+      <input type="email" id="resetEmail" placeholder="Enter your email to reset password" class="w-full border p-2 rounded-md focus:ring-blue-500 focus:border-blue-500" />
+      <button id="sendFirebaseResetLinkBtn" class="bg-blue-600 text-white w-full py-2 rounded-md hover:bg-blue-700 transition duration-200 shadow-md">Send Password Reset Link</button>
+      <button id="backToLogin2" class="bg-gray-200 text-gray-800 w-full py-2 rounded-md hover:bg-gray-300 transition duration-200 shadow-md">Back</button>
     </div>
+
+    <!-- Custom Message Box -->
+    <div id="customMessageBox" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+      <div class="bg-white p-6 rounded-lg shadow-xl w-80 text-center">
+        <p id="messageBoxContent" class="mb-4 text-gray-800"></p>
+        <button id="messageBoxCloseBtn" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200">OK</button>
+      </div>
+    </div>
+
   </div>
 
   <script type="module">
@@ -68,6 +84,9 @@
       measurementId: "G-KG4XS7C5Y0"
     };
 
+    // --- DEBUG LOG: Log Firebase Config ---
+    console.log("Firebase Config being used:", firebaseConfig);
+
     // Import Firebase functions directly from CDN
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, onAuthStateChanged, updateProfile, fetchSignInMethodsForEmail, deleteUser } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
@@ -80,8 +99,11 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
+    // --- DEBUG LOG: Log Firebase Auth instance ---
+    console.log("Firebase Auth instance initialized:", auth);
+
     // Global state variables
-    let generatedOtp = ""; // Stores OTP for signup verification
+    let generatedSignupOtp = ""; // Stores OTP for signup verification
     let tempSignupEmail = ""; // Stores email during signup process
 
     // UI elements
@@ -111,57 +133,117 @@
     const sendFirebaseResetLinkBtn = document.getElementById("sendFirebaseResetLinkBtn");
     const backToLogin2Btn = document.getElementById("backToLogin2");
 
+    // Custom Message Box elements
+    const customMessageBox = document.getElementById("customMessageBox");
+    const messageBoxContent = document.getElementById("messageBoxContent");
+    const messageBoxCloseBtn = document.getElementById("messageBoxCloseBtn");
+
     // --- Utility Functions ---
     function showStep(stepId) {
       // Hide all step divs
-      document.querySelectorAll("#step1, #step2, #step3, #step4, #step5, #resetStep").forEach(div =>
-        div.classList.add("hidden")
-      );
+      document.querySelectorAll("#step1, #step2, #step3, #step4, #step5, #resetStep").forEach(div => {
+        if (document.getElementById(div.id)) {
+          div.classList.add("hidden");
+        }
+      });
       // Show the requested step div
       document.getElementById(stepId).classList.remove("hidden");
       // Clear any previous messages
       message.textContent = "";
+
+      // Save the current step to localStorage
+      localStorage.setItem('currentStep', stepId);
     }
 
     function showMessage(msg, isError = true) {
-      message.textContent = msg;
-      message.className = isError ? "text-red-500 text-center mb-4" : "text-green-600 text-center mb-4";
+      messageBoxContent.textContent = msg;
+      messageBoxContent.className = isError ? "text-red-500 mb-4" : "text-green-600 mb-4";
+      customMessageBox.classList.remove("hidden");
     }
 
-    // --- Initial Load ---
-    window.onload = () => showStep("step1");
+    // Close message box
+    messageBoxCloseBtn.onclick = () => {
+      customMessageBox.classList.add("hidden");
+    };
+
+    // --- Input Persistence Handlers ---
+    // New handlers for login page inputs
+    emailInput.oninput = () => {
+      localStorage.setItem('loginEmailInputVal', emailInput.value);
+    };
+
+    passwordInput.oninput = () => {
+      localStorage.setItem('loginPasswordInputVal', passwordInput.value);
+    };
+
+    signupEmailInput.oninput = () => {
+      localStorage.setItem('signupEmailInputVal', signupEmailInput.value);
+    };
+
+    resetEmailInput.oninput = () => {
+      localStorage.setItem('resetEmailInputVal', resetEmailInput.value);
+    };
+
+    // --- Initial Load / State Restoration ---
+    window.onload = () => {
+      // Restore input values first, in case we land on a step with pre-filled data
+      if (localStorage.getItem('loginEmailInputVal')) {
+        emailInput.value = localStorage.getItem('loginEmailInputVal');
+      }
+      if (localStorage.getItem('loginPasswordInputVal')) {
+        passwordInput.value = localStorage.getItem('loginPasswordInputVal');
+      }
+      if (localStorage.getItem('signupEmailInputVal')) {
+        signupEmailInput.value = localStorage.getItem('signupEmailInputVal');
+      }
+      if (localStorage.getItem('resetEmailInputVal')) {
+        resetEmailInput.value = localStorage.getItem('resetEmailInputVal');
+      }
+
+      // Check Firebase Auth state first, as it's the primary state
+      onAuthStateChanged(auth, user => {
+        if (user) {
+          // User is signed in. Fetch display name from Firestore or use Firebase Auth name/email.
+          getDoc(doc(db, "users", user.uid)).then(docSnap => {
+            if (docSnap.exists()) {
+              userNameSpan.textContent = docSnap.data().name || user.displayName || user.email;
+            } else {
+              userNameSpan.textContent = user.displayName || user.email;
+            }
+            showStep("step5"); // Go to welcome dashboard
+            // Clear temporary signup/reset state if successfully logged in
+            localStorage.removeItem('currentStep');
+            localStorage.removeItem('loginEmailInputVal'); // Clear login fields too
+            localStorage.removeItem('loginPasswordInputVal');
+            localStorage.removeItem('signupEmailInputVal');
+            localStorage.removeItem('resetEmailInputVal');
+          }).catch(error => {
+            console.error("Error fetching user data from Firestore:", error);
+            userNameSpan.textContent = user.displayName || user.email; // Fallback
+            showStep("step5");
+            localStorage.removeItem('currentStep');
+            localStorage.removeItem('loginEmailInputVal');
+            localStorage.removeItem('loginPasswordInputVal');
+            localStorage.removeItem('signupEmailInputVal');
+            localStorage.removeItem('resetEmailInputVal');
+          });
+        } else {
+          // User is signed out. Check if there's a saved UI step.
+          const savedStep = localStorage.getItem('currentStep');
+          if (savedStep) {
+            showStep(savedStep);
+          } else {
+            showStep("step1"); // Default to login page if no saved step
+          }
+        }
+      });
+    };
 
     // --- Navigation Buttons ---
     signupBtn.onclick = () => showStep("step2");
     forgotBtn.onclick = () => showStep("resetStep");
     backToLogin1Btn.onclick = () => showStep("step1");
     backToLogin2Btn.onclick = () => showStep("step1");
-
-    // --- Firebase Authentication State Listener ---
-    onAuthStateChanged(auth, user => { // Use modular onAuthStateChanged
-      if (user) {
-        // User is signed in. Fetch display name from Firestore or use Firebase Auth name/email.
-        getDoc(doc(db, "users", user.uid)).then(docSnap => { // Use modular getDoc and doc
-          if (docSnap.exists()) {
-            userNameSpan.textContent = docSnap.data().name || user.displayName || user.email;
-          } else {
-            userNameSpan.textContent = user.displayName || user.email;
-          }
-          showStep("step5"); // Go to welcome dashboard
-        }).catch(error => {
-          console.error("Error fetching user data from Firestore:", error);
-          userNameSpan.textContent = user.displayName || user.email; // Fallback
-          showStep("step5");
-        });
-      } else {
-        // User is signed out. If not already on step1, redirect to login.
-        if (!document.getElementById("step1").classList.contains("hidden")) {
-          // Already on step1, do nothing
-        } else {
-          showStep("step1"); // Go to login page
-        }
-      }
-    });
 
     // --- LOGIN Functionality ---
     loginBtn.onclick = async () => {
@@ -171,16 +253,18 @@
         return showMessage("Please enter both email and password.");
       }
       try {
-        // Attempt to sign in with email and password
-        await signInWithEmailAndPassword(auth, email, pass); // Use modular signInWithEmailAndPassword
+        await signInWithEmailAndPassword(auth, email, pass);
+        console.log("Login successful for user (from Firebase Auth):", email);
+        // Clear temporary state on successful login
+        localStorage.removeItem('currentStep');
+        localStorage.removeItem('loginEmailInputVal');
+        localStorage.removeItem('loginPasswordInputVal');
+        localStorage.removeItem('signupEmailInputVal');
+        localStorage.removeItem('resetEmailInputVal');
         // onAuthStateChanged will handle showing step5
       } catch (error) {
         console.error("Login error:", error);
-        if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
-          showMessage("Invalid email or password.");
-        } else {
-          showMessage(`Login failed: ${error.message}`);
-        }
+        showMessage("Wrong password or email.");
       }
     };
 
@@ -190,32 +274,32 @@
       if (!email) return showMessage("Please enter an email address.");
 
       try {
-        // Check if email already exists in Firebase Authentication
-        const signInMethods = await fetchSignInMethodsForEmail(auth, email); // Use modular fetchSignInMethodsForEmail
+        const signInMethods = await fetchSignInMethodsForEmail(auth, email);
+        console.log("Signup: signInMethods for", email, ":", signInMethods);
         if (signInMethods && signInMethods.length > 0) {
+          console.log("DEBUG: Email already registered, showing message.");
           return showMessage("This email is already registered. Please log in or use 'Forgot Password'.", false);
         }
 
-        // Generate and send OTP via EmailJS
-        generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
-        tempSignupEmail = email; // Store email for account creation
+        generatedSignupOtp = Math.floor(100000 + Math.random() * 900000).toString();
+        tempSignupEmail = email;
         await emailjs.send("service_dfs7t3l", "template_pd5umbl", {
           to_email: email,
-          otp: generatedOtp
+          otp: generatedSignupOtp
         });
         showMessage("OTP sent to your email. Please check your inbox and spam folder.", false);
-        showStep("step3"); // Move to OTP verification step
+        showStep("step3");
       } catch (error) {
-        console.error("OTP send error:", error);
-        showMessage(`Failed to send OTP: ${error.message}`);
+        console.error("OTP send error (Signup):", error);
+        showMessage("Failed to send OTP. Please try again.");
       }
     };
 
     // --- SIGNUP — STEP 2: Verify OTP ---
     verifyOtpBtn.onclick = () => {
-      if (otpInput.value.trim() === generatedOtp) {
+      if (otpInput.value.trim() === generatedSignupOtp) {
         showMessage("OTP verified!", false);
-        showStep("step4"); // Move to name and password setup
+        showStep("step4");
       } else {
         showMessage("Invalid OTP. Please try again.");
       }
@@ -225,33 +309,42 @@
     createAccountBtn.onclick = async () => {
       const name = nameInput.value.trim();
       const password = newSignupPassInput.value.trim();
-      const email = tempSignupEmail; // Use the email from OTP verification
+      const email = tempSignupEmail;
 
       if (!email || !name || !password) return showMessage("All fields are required.");
       if (password.length < 6) return showMessage("Password must be at least 6 characters long.");
 
       try {
-        // Create user in Firebase Authentication
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password); // Use modular createUserWithEmailAndPassword
-        // Update user profile with display name
-        await updateProfile(userCredential.user, { displayName: name }); // Use modular updateProfile
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        console.log("User created in Firebase Auth:", userCredential.user.email, "UID:", userCredential.user.uid);
+        await updateProfile(userCredential.user, { displayName: name });
 
-        // Store additional user data in Firestore
-        await setDoc(doc(db, "users", userCredential.user.uid), { // Use modular setDoc and doc
+        await setDoc(doc(db, "users", userCredential.user.uid), {
           name: name,
           email: email,
-          createdAt: serverTimestamp() // Use modular serverTimestamp
+          createdAt: serverTimestamp()
         });
+        console.log("User data stored in Firestore for UID:", userCredential.user.uid);
 
-        // onAuthStateChanged will handle showing step5 (Welcome dashboard)
         showMessage("Account created successfully!", false);
+        // Clear temporary state on successful signup
+        localStorage.removeItem('currentStep');
+        localStorage.removeItem('loginEmailInputVal');
+        localStorage.removeItem('loginPasswordInputVal');
+        localStorage.removeItem('signupEmailInputVal');
+        localStorage.removeItem('resetEmailInputVal');
+        // onAuthStateChanged will handle showing step5
       } catch (error) {
         console.error("Account creation error:", error);
         if (error.code === 'auth/email-already-in-use') {
           showMessage("This email is already registered. Please log in.", false);
-          showStep("step1"); // Go back to login if already registered
+          showStep("step1");
+        } else if (error.code === 'auth/invalid-email') {
+          showMessage("The email address format is invalid.");
+        } else if (error.code === 'auth/weak-password') {
+          showMessage("Password is too weak. Please choose a stronger password.");
         } else {
-          showMessage(`Account creation failed: ${error.message}`);
+          showMessage("Account creation failed due to an unexpected error. Please try again.");
         }
       }
     };
@@ -259,45 +352,48 @@
     // --- LOGOUT Functionality ---
     logoutBtn.onclick = async () => {
       try {
-        await auth.signOut(); // Use modular signOut
-        // onAuthStateChanged will handle showing step1
+        await auth.signOut();
         showMessage("You have been logged out.", false);
+        // Clear all state on logout
+        localStorage.clear(); // Clear all localStorage related to the app
+        showStep("step1"); // Ensure we go back to step1
       } catch (error) {
         console.error("Logout error:", error);
-        showMessage(`Logout failed: ${error.message}`);
+        showMessage("Logout failed. Please try again.");
       }
     };
 
     // --- DELETE ACCOUNT Functionality ---
     deleteBtn.onclick = async () => {
-      const user = auth.currentUser; // Get current user
+      const user = auth.currentUser;
       if (!user) {
         showMessage("No user is currently logged in.");
         return;
       }
 
-      if (!confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
-        return;
-      }
-
-      try {
-        // Delete user data from Firestore first
-        await deleteDoc(doc(db, "users", user.uid)); // Use modular deleteDoc and doc
-        // Delete user from Firebase Authentication
-        await deleteUser(user); // Use modular deleteUser
-        showMessage("Your account has been successfully deleted.", false);
-        // onAuthStateChanged will handle showing step1
-      } catch (error) {
-        console.error("Delete account error:", error);
-        if (error.code === 'auth/requires-recent-login') {
-          showMessage("Please log in again to delete your account for security reasons. Log out and then log back in.", false);
-        } else {
-          showMessage(`Failed to delete account: ${error.message}`);
+      showMessage("Are you sure you want to delete your account? This action cannot be undone.", true);
+      messageBoxCloseBtn.onclick = async () => {
+        customMessageBox.classList.add("hidden");
+        try {
+          await deleteDoc(doc(db, "users", user.uid));
+          await deleteUser(user);
+          showMessage("Your account has been successfully deleted.", false);
+          // Clear all state on account deletion
+          localStorage.clear(); // Clear all localStorage related to the app
+          showStep("step1"); // Ensure we go back to step1
+        } catch (error) {
+          console.error("Delete account error:", error);
+          if (error.code === 'auth/requires-recent-login') {
+            showMessage("Please log in again to delete your account for security reasons. Log out and then log back in.", false);
+          } else {
+            showMessage(`Failed to delete account: ${error.message}`);
+          }
         }
-      }
+        messageBoxCloseBtn.onclick = () => { customMessageBox.classList.add("hidden"); };
+      };
     };
 
-    // --- FORGOT PASSWORD (Using Firebase's native flow) ---
+    // --- FORGOT PASSWORD — Send Firebase Reset Link Directly ---
     sendFirebaseResetLinkBtn.onclick = async () => {
       const email = resetEmailInput.value.trim();
       if (!email) {
@@ -305,26 +401,25 @@
       }
 
       try {
-        // Check if the email exists in Firebase Authentication
-        const signInMethods = await fetchSignInMethodsForEmail(auth, email); // Use modular fetchSignInMethodsForEmail
-        if (!signInMethods || signInMethods.length === 0) {
-          // If no sign-in methods are found, the email is NOT registered in Firebase Auth.
-          return showMessage("No account found with this email. Please sign up or check your email for typos.");
-        }
-
-        // If an account *is* found, send the Firebase password reset email
-        await sendPasswordResetEmail(auth, email); // Use modular sendPasswordResetEmail
+        console.log(`Forgot Password: Email string being checked: "${email}" (Length: ${email.length})`);
+        await sendPasswordResetEmail(auth, email);
         showMessage("Password reset link sent to your email. Please check your inbox and spam folder.", false);
-        resetEmailInput.value = ""; // Clear the input field
+        resetEmailInput.value = "";
+        // Clear temporary state on successful reset link send
+        localStorage.removeItem('currentStep');
+        localStorage.removeItem('loginEmailInputVal');
+        localStorage.removeItem('loginPasswordInputVal');
+        localStorage.removeItem('signupEmailInputVal');
+        localStorage.removeItem('resetEmailInputVal');
+        showStep("step1");
       } catch (error) {
         console.error("Password reset error:", error);
         if (error.code === 'auth/invalid-email') {
           showMessage("The email address is not valid.");
         } else if (error.code === 'auth/user-not-found') {
-          // This is a fallback and should ideally be caught by fetchSignInMethodsForEmail above
           showMessage("No account found with this email. Please sign up.");
         } else {
-          showMessage(`Failed to send reset link: ${error.message}`);
+          showMessage("Failed to send reset link due to an unexpected error. Please try again.");
         }
       }
     };
